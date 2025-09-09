@@ -1,8 +1,8 @@
+"use client";
+import React, { use } from 'react';
 
-import React from 'react';
-
-export default async function SellerDynamicPage({ params }: { params: { id: string } }) {
-  const { id } = await params;
+export default function SellerDynamicPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = use(params);
   const sellerId = id;
 
   return (

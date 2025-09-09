@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function CustomerDashboardPage() {
+export default function AdminDashboardPage() {
   return (
     <div>
       <h1>Admin Dashboard</h1>

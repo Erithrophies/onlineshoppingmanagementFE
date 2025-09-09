@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import CustomerRegisterForm from '@/components/CustomerRegisterForm';
 import SellerRegisterForm from '@/components/SellerRegisterForm';
+import AdminRegisterForm from '@/components/AdminRegisterForm';
 
 export default function RegisterPage() {
   const [userType, setUserType] = useState('customer');
@@ -13,6 +14,9 @@ export default function RegisterPage() {
     }
     if (userType === 'seller') {
       return <SellerRegisterForm />;
+    }
+    if (userType === 'admin') {
+      return<AdminRegisterForm/>;
     }
     return null;
   };
@@ -39,6 +43,16 @@ export default function RegisterPage() {
           />
           Sign up as a seller
         </label>
+
+        <label style={{ marginLeft: '10px' }}>
+        <input type="radio"
+         value="admin"
+         checked={userType === 'admin'} 
+          onChange={() => setUserType('admin')}
+         />
+          Sign up as an admin
+        </label>
+
       </div>
       {renderForm()}
     </div>

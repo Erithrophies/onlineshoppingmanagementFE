@@ -1,7 +1,9 @@
-import React from 'react';
+"use client";
+import React, { use } from 'react';
 
-export default async function CustomerProfilePage({ params }: { params: { id: string } }) {
-  const { id } = await params;
+
+export default  function CustomerProfilePage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = use(params);
   const customerId = id;
 
   return (
@@ -10,4 +12,4 @@ export default async function CustomerProfilePage({ params }: { params: { id: st
       <p>This is the profile page for Customer ID: {customerId}</p>
     </div>
   );
-}
+}1
