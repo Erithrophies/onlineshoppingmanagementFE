@@ -23,7 +23,7 @@ export default function AdminRegisterForm() {
       [name]: value
     });
     
-    // Clear error when user starts typing
+    
     if (errors[name as keyof AdminFormData]) {
       setErrors({
         ...errors,
