@@ -1,6 +1,8 @@
 import Footer from '@/components/footer';
 import Header from '@/components/header';
 import React from 'react';
+import Script from 'next/script';
+import './globals.css';
 
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -8,9 +10,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body>
         <Header />
-        <main style={{ padding: '20px', minHeight: '80vh' }}>
+          <Script src="https://cdn.tailwindcss.com"></Script>
           {children}
-        </main>
         <Footer />
       </body>
     </html>

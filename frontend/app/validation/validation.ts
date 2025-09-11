@@ -23,7 +23,7 @@ export const customerRegistrationSchema = z.object({
   username: z
     .string()
     .min(3, "Username must be at least 3 characters")
-    .max(20, "Username must be less than 20 characters")
+    .max(20, "Username must be less than 2  0 characters")
     .regex(/^[a-zA-Z][a-zA-Z0-9_]*$/, "Username must start with an alphabet and can only contain letters, numbers, and underscores"),
   name: z
     .string()
