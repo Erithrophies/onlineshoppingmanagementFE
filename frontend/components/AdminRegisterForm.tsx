@@ -118,7 +118,7 @@ export default function AdminRegisterForm() {
             name="username"
             style={{ 
               width: "100%", 
-              padding: "10px", 
+              padding: "6px", 
               borderRadius: "4px", 
               border: errors.username ? "1px solid #dc3545" : "1px solid #ccc" 
             }}
@@ -145,7 +145,7 @@ export default function AdminRegisterForm() {
             name="name"
             style={{ 
               width: "100%", 
-              padding: "10px", 
+              padding: "6px", 
               borderRadius: "4px", 
               border: errors.name ? "1px solid #dc3545" : "1px solid #ccc" 
             }}
@@ -172,7 +172,7 @@ export default function AdminRegisterForm() {
             name="email"
             style={{ 
               width: "100%", 
-              padding: "10px", 
+              padding: "6px", 
               borderRadius: "4px", 
               border: errors.email ? "1px solid #dc3545" : "1px solid #ccc" 
             }}
@@ -199,7 +199,7 @@ export default function AdminRegisterForm() {
             name="password"
             style={{ 
               width: "100%", 
-              padding: "10px", 
+              padding: "6px", 
               borderRadius: "4px", 
               border: errors.password ? "1px solid #dc3545" : "1px solid #ccc" 
             }}
@@ -219,7 +219,7 @@ export default function AdminRegisterForm() {
           style={{
             width: "100%",
             padding: "10px",
-            background: isLoading ? "#6c757d" : "#007bff",
+            background: isLoading ? "#6c757d" : "#063d79ff",
             color: "white",
             border: "none",
             borderRadius: "4px",
