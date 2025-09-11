@@ -8,9 +8,8 @@ export default function Header() {
     <>
       <style>{`
         .header-bg {
-          background-image: linear-gradient(to right, #111827, #1f2937);
+          background-image: linear-gradient(to right, rgb(16, 16, 16), rgb(20, 20, 20));
           backdrop-filter: blur(8px);
-          background-color: rgba(31, 41, 55, 0.7);
         }
         .header-container {
           max-width: 1280px;
@@ -34,7 +33,7 @@ export default function Header() {
           }
         }
         .link-hover:hover {
-          color: #9ca3af;
+          color: #383839ff;
           transition: color 0.3s;
         }
         .dropdown {
@@ -49,10 +48,10 @@ export default function Header() {
           /* Remove margin to eliminate the gap */
           margin-top: 0; 
           width: 12rem;
-          background-color: #111827;
+          background-color:rgb(18,18,18);
           border-radius: 0.375rem;
           box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(169, 163, 163, 0.05);
           padding: 0.25rem 0;
           transition: all 0.3s;
           transform-origin: top right;
@@ -105,8 +104,8 @@ export default function Header() {
               {/* The dropdown menu */}
               {isLoginHovered && (
                 <div className="dropdown-menu">
-                  <a href="/login" className="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-800">Sign In</a>
-                  <a href="/register" className="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-800">Sign Up</a>
+                  <a href="/login" className="block px-4 py-2 text-sm text-gray-200 link-hover cursor-pointer">Sign In</a>
+                  <a href="/register" className="block px-4 py-2 text-sm text-gray-200 link-hover cursor-pointer">Sign Up</a>
                 </div>
               )}
             </div>
