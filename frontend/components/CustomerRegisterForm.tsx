@@ -98,126 +98,80 @@ export default function CustomerRegisterForm() {
 }
 
   return (
-    <div style={{ maxWidth: "400px", margin: "50px auto", padding: "20px", background: "white", borderRadius: "8px", boxShadow: "0 0 10px rgba(0,0,0,0.1)" }}>
-      <h2 style={{ textAlign: "center" }}>Customer Registration</h2>
-
-      <form onSubmit={handleRegister}>
-        <div style={{ marginBottom: "12px" }}>
-          <label htmlFor="username" style={{ display: "block", marginBottom: "6px", fontWeight: "bold" }}>Username</label>
+    <div className="text-left">
+      <h2 className="text-2xl font-semibold mb-6">Customer Registration</h2>
+      <form onSubmit={handleRegister} noValidate>
+        <div className="relative mb-6">
           <input
             type="text"
             id="username"
             name="username"
-            style={{
-              width: "100%",
-              padding: "10px",
-              borderRadius: "4px",
-              border: errors.username ? "1px solid #dc3545" : "1px solid #ccc"
-            }}
             value={formData.username}
             onChange={handleChange}
+            className={`w-full py-4 px-4 border-2 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors ${errors.username ? 'border-red-500' : 'border-gray-300'}`}
+            placeholder="Username"
           />
-          {errors.username && (
-            <p style={{ color: "#dc3545", margin: "5px 0 0 0", fontSize: "0.9em" }}>
-              {errors.username}
-            </p>
-          )}
+          {errors.username && <p className="text-red-500 text-sm mt-2">{errors.username}</p>}
         </div>
 
-        <div style={{ marginBottom: "12px" }}>
-          <label htmlFor="name" style={{ display: "block", marginBottom: "6px", fontWeight: "bold" }}>Full Name</label>
+        <div className="relative mb-6">
           <input
             type="text"
             id="name"
             name="name"
-            style={{
-              width: "100%",
-              padding: "10px",
-              borderRadius: "4px",
-              border: errors.name ? "1px solid #dc3545" : "1px solid #ccc"
-            }}
             value={formData.name}
             onChange={handleChange}
+            className={`w-full py-4 px-4 border-2 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors ${errors.name ? 'border-red-500' : 'border-gray-300'}`}
+            placeholder="Full Name"
           />
-          {errors.name && (
-            <p style={{ color: "#dc3545", margin: "5px 0 0 0", fontSize: "0.9em" }}>
-              {errors.name}
-            </p>
-          )}
+          {errors.name && <p className="text-red-500 text-sm mt-2">{errors.name}</p>}
         </div>
 
-        <div style={{ marginBottom: "12px" }}>
-          <label htmlFor="email" style={{ display: "block", marginBottom: "6px", fontWeight: "bold" }}>Email Address</label>
+        <div className="relative mb-6">
           <input
             type="email"
             id="email"
             name="email"
-            style={{
-              width: "100%",
-              padding: "10px",
-              borderRadius: "4px",
-              border: errors.email ? "1px solid #dc3545" : "1px solid #ccc"
-            }}
             value={formData.email}
             onChange={handleChange}
+            className={`w-full py-4 px-4 border-2 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors ${errors.email ? 'border-red-500' : 'border-gray-300'}`}
+            placeholder="Email Address"
           />
-          {errors.email && (
-            <p style={{ color: "#dc3545", margin: "5px 0 0 0", fontSize: "0.9em" }}>
-              {errors.email}
-            </p>
-          )}
+          {errors.email && <p className="text-red-500 text-sm mt-2">{errors.email}</p>}
         </div>
 
-        <div style={{ marginBottom: "12px" }}>
-          <label htmlFor="password" style={{ display: "block", marginBottom: "6px", fontWeight: "bold" }}>Password</label>
+        <div className="relative mb-6">
           <input
             type="password"
             id="password"
             name="password"
-            style={{
-              width: "100%",
-              padding: "10px",
-              borderRadius: "4px",
-              border: errors.password ? "1px solid #dc3545" : "1px solid #ccc"
-            }}
             value={formData.password}
             onChange={handleChange}
+            className={`w-full py-4 px-4 border-2 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors ${errors.password ? 'border-red-500' : 'border-gray-300'}`}
+            placeholder="Password"
           />
-          {errors.password && (
-            <p style={{ color: "#dc3545", margin: "5px 0 0 0", fontSize: "0.9em" }}>
-              {errors.password}
-            </p>
-          )}
+          {errors.password && <p className="text-red-500 text-sm mt-2">{errors.password}</p>}
         </div>
 
         <button
           type="submit"
           disabled={isLoading}
-          style={{
-            width: "100%",
-            padding: "10px",
-            background: isLoading ? "#6c757d" : "#007bff",
-            color: "white",
-            border: "none",
-            borderRadius: "4px",
-            fontWeight: "bold",
-            cursor: isLoading ? "not-allowed" : "pointer"
-          }}
+          className={`w-full py-3 px-6 text-lg font-bold rounded-full transition-colors duration-300
+          ${isLoading ? 'bg-gray-400 cursor-not-allowed' : 'bg-black text-white hover:bg-gray-800'}`}
         >
           {isLoading ? "Registering..." : "Sign Up as Customer"}
         </button>
       </form>
 
       {successMessage && (
-        <div style={{ marginTop: "15px", padding: "10px", background: "#d4edda", color: "#155724", borderRadius: "4px", border: "1px solid #c3e6cb" }}>
-          <p style={{ margin: 0 }}>{successMessage}</p>
+        <div className="mt-4 p-3 rounded-lg text-center text-green-700 bg-green-100 border border-green-200">
+          {successMessage}
         </div>
       )}
 
       {apiError && (
-        <div style={{ marginTop: "15px", padding: "10px", background: "#f8d7da", color: "#721c24", borderRadius: "4px", border: "1px solid #f5c6cb" }}>
-          <p style={{ margin: 0, fontWeight: "bold" }}>Error:</p>
-          <p style={{ margin: "5px 0 0 0" }}>{apiError}</p>
+        <div className="mt-4 p-3 rounded-lg text-center text-red-700 bg-red-100 border border-red-200">
+          {apiError}
         </div>
       )}
     </div>

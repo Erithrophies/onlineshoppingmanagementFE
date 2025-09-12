@@ -16,45 +16,47 @@ export default function RegisterPage() {
       return <SellerRegisterForm />;
     }
     if (userType === 'admin') {
-      return<AdminRegisterForm/>;
+      return <AdminRegisterForm/>;
     }
     return null;
   };
 
   return (
-    <div>
-      <h1>Register</h1>
-      <div style={{ marginBottom: '15px' }}>
-        <label>
-          <input
-            type="radio"
-            value="customer"
-            checked={userType === 'customer'}
-            onChange={() => setUserType('customer')}
-          />
-          Sign up as a customer
-        </label>
-        <label style={{ marginLeft: '10px' }}>
-          <input
-            type="radio"
-            value="seller"
-            checked={userType === 'seller'}
-            onChange={() => setUserType('seller')}
-          />
-          Sign up as a seller
-        </label>
+    <div className="flex flex-col items-center min-h-screen bg-white text-gray-800 p-8">
+      <div className="w-full max-w-sm">
+        <h1 className="text-4xl font-bold mt-20 mb-16 text-left">Create Your Account</h1>
+        <div className="text-left mb-8">
+          <h2 className="text-2xl font-semibold mb-6">Join Us</h2>
 
-        <label style={{ marginLeft: '10px' }}>
-        <input type="radio"
-         value="admin"
-         checked={userType === 'admin'} 
-          onChange={() => setUserType('admin')}
-         />
-          Sign up as an admin
-        </label>
+          {/* Segmented Control for User Type */}
+          <div className="flex bg-gray-200 rounded-full p-1 mb-8">
+            <button
+              className={`flex-1 py-2 rounded-full text-center font-medium transition-colors duration-300
+              ${userType === 'customer' ? 'bg-black text-white' : 'text-gray-800'}`}
+              onClick={() => setUserType('customer')}
+            >
+              Customer
+            </button>
+            <button
+              className={`flex-1 py-2 rounded-full text-center font-medium transition-colors duration-300
+              ${userType === 'seller' ? 'bg-black text-white' : 'text-gray-800'}`}
+              onClick={() => setUserType('seller')}
+            >
+              Seller
+            </button>
+            <button
+              className={`flex-1 py-2 rounded-full text-center font-medium transition-colors duration-300
+              ${userType === 'admin' ? 'bg-black text-white' : 'text-gray-800'}`}
+              onClick={() => setUserType('admin')}
+            >
+              Admin
+            </button>
+          </div>
 
+          {/* Render the selected form */}
+          {renderForm()}
+        </div>
       </div>
-      {renderForm()}
     </div>
   );
 }

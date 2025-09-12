@@ -10,11 +10,6 @@ export default function Footer() {
           <h4 className="font-semibold text-gray-900 mb-4">Shop and Learn</h4>
           <ul className="space-y-2">
             <li><a href="#" className="hover:text-gray-900">Store</a></li>
-            <li><a href="#" className="hover:text-gray-900">Mac</a></li>
-            <li><a href="#" className="hover:text-gray-900">iPad</a></li>
-            <li><a href="#" className="hover:text-gray-900">iPhone</a></li>
-            <li><a href="#" className="hover:text-gray-900">Watch</a></li>
-            <li><a href="#" className="hover:text-gray-900">AirPods</a></li>
             <li><a href="#" className="hover:text-gray-900">TV & Home</a></li>
             <li><a href="#" className="hover:text-gray-900">Accessories</a></li>
             <li><a href="#" className="hover:text-gray-900">Gift Cards</a></li>
@@ -25,15 +20,9 @@ export default function Footer() {
         <div>
           <h4 className="font-semibold text-gray-900 mb-4">Services</h4>
           <ul className="space-y-2">
-            <li><a href="#" className="hover:text-gray-900">COSMO Music</a></li>
-            <li><a href="#" className="hover:text-gray-900">COSMO TV+</a></li>
-            <li><a href="#" className="hover:text-gray-900">COSMO Arcade</a></li>
-            <li><a href="#" className="hover:text-gray-900">iCloud</a></li>
-            <li><a href="#" className="hover:text-gray-900">COSMO One</a></li>
-            <li><a href="#" className="hover:text-gray-900">COSMO Card</a></li>
-            <li><a href="#" className="hover:text-gray-900">COSMO Books</a></li>
-            <li><a href="#" className="hover:text-gray-900">COSMO Podcasts</a></li>
-            <li><a href="#" className="hover:text-gray-900">App Store</a></li>
+            <li><a href="#" className="hover:text-gray-900">COSMO Electronics</a></li>
+            <li><a href="#" className="hover:text-gray-900">COSMO Phones</a></li>
+            <li><a href="#" className="hover:text-gray-900">COSMO Headphones</a></li>
           </ul>
         </div>
         

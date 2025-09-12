@@ -1,5 +1,11 @@
 import { z } from "zod";
 
+export const loginSchema = z.object({
+  username: z
+    .string(),
+  password: z
+    .string()
+});
 
 export const adminRegistrationSchema = z.object({
   username: z
@@ -37,6 +43,15 @@ export const customerRegistrationSchema = z.object({
     .min(6, "Password must be at least 6 characters")
 });
 
+export const sellerRegistrationSchema = z.object({
+  username: z.string().min(3, "Username must be at least 3 characters long"),
+  email: z.string().email("Invalid email address"),
+  shopName: z.string().min(3, "Shop name must be at least 3 characters long"),
+  password: z.string().min(6, "Password must be at least 6 characters long"),
+});
+
 
 export type AdminFormData = z.infer<typeof adminRegistrationSchema>;
 export type CustomerFormData = z.infer<typeof customerRegistrationSchema>;
+export type SellerFormData = z.infer<typeof sellerRegistrationSchema>;
+export type LoginFormData = z.infer<typeof loginSchema>;
