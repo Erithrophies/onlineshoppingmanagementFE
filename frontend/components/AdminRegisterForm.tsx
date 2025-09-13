@@ -102,7 +102,7 @@ export default function AdminRegisterForm() {
 
   return (
    <div className="text-left">
-      <h2 className="text-2xl font-semibold mb-6">Customer Registration</h2>
+      <h2 className="text-2xl font-semibold mb-6">Admin Registration</h2>
       <form onSubmit={handleRegister} noValidate>
         <div className="relative mb-6">
           <input
