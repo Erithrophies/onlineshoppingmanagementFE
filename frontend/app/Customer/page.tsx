@@ -2,17 +2,19 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { ShoppingCart, Search } from "lucide-react";
+import { ShoppingCart, Search, LogOut } from "lucide-react"; // added LogOut icon
+import { useRouter } from "next/navigation";
 
 export default function CustomerDashboard() {
   const [customer, setCustomer] = useState<any>(null);
   const [products, setProducts] = useState<any[]>([]);
   const [search, setSearch] = useState("");
+  const router = useRouter();
 
   useEffect(() => {
     const token = localStorage.getItem("authToken");
     if (!token) {
-      console.error("No token found");
+      router.push("/login"); // redirect if no token
       return;
     }
 
@@ -21,11 +23,8 @@ export default function CustomerDashboard() {
       .get("http://localhost:3000/customers/my-profile", {
         headers: { Authorization: `Bearer ${token}` },
       })
-      .then((res) => {
-        console.log("Profile response:", res.data);
-        setCustomer(res.data);
-      })
-      .catch((err) => console.error("Profile error:", err.response?.data || err));
+      .then((res) => setCustomer(res.data))
+      .catch((err) => console.error(err));
 
     // Fetch products
     axios
@@ -33,7 +32,7 @@ export default function CustomerDashboard() {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => setProducts(res.data))
-      .catch((err) => console.error("Products error:", err.response?.data));
+      .catch((err) => console.error(err));
   }, []);
 
   // Filter products locally for search
@@ -41,12 +40,20 @@ export default function CustomerDashboard() {
     p.name.toLowerCase().includes(search.toLowerCase())
   );
 
+  // Logout function
+  const handleLogout = () => {
+    if (confirm("Are you sure you want to logout?")) {
+      localStorage.removeItem("authToken");
+      router.push("/login");
+    }
+  };
+
   return (
     <div className="min-h-screen bg-zinc-50">
       {/* Top Nav */}
       <header className="sticky top-0 z-50 bg-white border-b border-zinc-200">
         <div className="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
-          <h1 className="text-2xl font-bold text-zinc-900 tracking-tight">
+          <h1 className="text-2xl font-bold text-blue-700 tracking-tight">
             {customer ? `Hi, ${customer.name}` : "Loading..."}
           </h1>
           <div className="flex items-center gap-4">
@@ -58,20 +65,33 @@ export default function CustomerDashboard() {
                 placeholder="Search products..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="pl-10 pr-4 py-2 border border-zinc-300 rounded-full text-sm focus:ring-2 focus:ring-black focus:outline-none"
+                className="pl-10 pr-4 py-2 border border-zinc-300 text-zinc-500 rounded-full text-sm focus:ring-2 focus:ring-black focus:outline-none"
               />
             </div>
+
             {/* Cart Button */}
-            <button className="flex items-center gap-2 px-4 py-2 rounded-full bg-black text-white hover:bg-zinc-800 transition">
+            <a
+              href="/Customer/cart"
+              className="flex items-center gap-2 px-4 py-2 rounded-full bg-black text-white hover:bg-zinc-800 transition"
+            >
               <ShoppingCart className="h-5 w-5" />
               Cart
+            </a>
+
+            {/* Logout Button */}
+            <button
+              onClick={handleLogout}
+              className="flex items-center gap-2 px-4 py-2 rounded-full bg-red-600 text-white hover:bg-red-700 transition font-medium"
+            >
+              <LogOut className="h-5 w-5" />
+              Logout
             </button>
           </div>
         </div>
       </header>
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-gray-700 via-blue-900 to-gray-800 text-white py-20 text-center">
+      <section className="w-full bg-gradient-to-r from-gray-700 via-blue-900 to-gray-800 text-white py-20 text-center">
         <h2 className="text-4xl sm:text-5xl font-extrabold tracking-tight">
           Discover Products You’ll Love
         </h2>
@@ -89,7 +109,7 @@ export default function CustomerDashboard() {
             {filteredProducts.map((product) => (
               <div
                 key={product.id}
-                className="group bg-white rounded-3xl shadow-md hover:shadow-2xl transition overflow-hidden"
+                className="group bg-white rounded-3xl shadow-md hover:shadow-2xl transition overflow-hidden flex flex-col"
               >
                 {/* Product Image Placeholder */}
                 <div className="h-56 bg-gradient-to-tr from-zinc-200 to-zinc-300 flex items-center justify-center text-4xl font-bold text-zinc-500 group-hover:scale-105 transition-transform">
@@ -97,23 +117,21 @@ export default function CustomerDashboard() {
                 </div>
 
                 {/* Product Details */}
-                <div className="p-6 text-center">
+                <div className="p-6 flex flex-col flex-grow">
                   <h3 className="text-lg font-semibold text-zinc-900">
                     {product.name}
                   </h3>
                   <p className="mt-2 text-sm text-zinc-500 line-clamp-2">
                     {product.description}
                   </p>
-                  <p className="mt-4 text-xl font-bold text-black">
-                    ${product.price}
-                  </p>
-                  <p className="mt-1 text-sm text-zinc-400">
-                    By {product.seller?.shopName || "Unknown Shop"}
-                  </p>
-
-                  <button className="mt-6 w-full py-3 bg-black text-white rounded-xl font-medium hover:bg-zinc-800 transition">
+                  <p className="mt-4 text-xl font-bold text-black">${product.price}</p>
+                  <div className="flex-grow"></div>
+                  <a
+                    href={`/Customer/product/${product.id}`}
+                    className="flex items-center justify-center px-4 py-2 rounded-full bg-black text-white hover:bg-zinc-800 transition"
+                  >
                     Add to Cart
-                  </button>
+                  </a>
                 </div>
               </div>
             ))}
@@ -129,7 +147,7 @@ export default function CustomerDashboard() {
               View your payment history, track upcoming invoices, and manage your payment methods.
             </p>
             <a
-              href="/payments"
+              href="/Customer/payment"
               className="mt-auto inline-block px-6 py-3 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-700 transition"
             >
               Go to My Payments
@@ -143,37 +161,33 @@ export default function CustomerDashboard() {
               Check your order history, track shipping status, and manage your current orders.
             </p>
             <a
-              href="/orders"
+              href="/Customer/orders"
               className="mt-auto inline-block px-6 py-3 bg-green-600 text-white rounded-xl font-medium hover:bg-green-700 transition"
             >
               Go to My Orders
             </a>
           </div>
         </div>
+
+        {/* Account Settings */}
         <div className="mt-16">
-  <section className="w-full max-w-7xl mx-auto bg-gradient-to-r via-red-100  text-orange-950 rounded-3xl p-10 flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xl">
-  {/* Text content */}
-  <div className="md:w-1/2 mb-6 md:mb-0">
-    <h3 className="text-3xl md:text-4xl font-extrabold mb-4">
-      Account Settings
-    </h3>
-    <p className="text-zinc-400 text-lg md:text-xl leading-relaxed">
-      Manage your profile information, update your password, and customize your preferences. Keep your account secure and up-to-date with ease.
-    </p>
-  </div>
-
-  {/* Button */}
-  <div className="md:w-1/2 flex justify-center md:justify-end">
-    <a
-      href="/account"
-      className="px-8 py-4 bg-white text-purple-700 font-semibold rounded-2xl hover:bg-white/90 transition-shadow shadow-lg"
-    >
-      Go to Account Settings
-    </a>
-  </div>
-</section>
-
-</div>
+          <section className="w-full max-w-7xl mx-auto bg-gradient-to-r via-red-100 text-orange-950 rounded-3xl p-10 flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xl">
+            <div className="md:w-1/2 mb-6 md:mb-0">
+              <h3 className="text-3xl md:text-4xl font-extrabold mb-4">Account Settings</h3>
+              <p className="text-zinc-400 text-lg md:text-xl leading-relaxed">
+                Manage your profile information, update your password, and customize your preferences. Keep your account secure and up-to-date with ease.
+              </p>
+            </div>
+            <div className="md:w-1/2 flex justify-center md:justify-end">
+              <a
+                href="/Customer/account"
+                className="px-8 py-4 bg-white text-purple-700 font-semibold rounded-2xl hover:bg-white/90 transition-shadow shadow-lg"
+              >
+                Go to Account Settings
+              </a>
+            </div>
+          </section>
+        </div>
       </main>
     </div>
   );

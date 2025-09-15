@@ -8,10 +8,10 @@ export default function HomePage() {
       <section className="bg-black text-white text-center py-16 md:py-24">
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="text-4xl md:text-6xl font-bold mb-4">COSMO Vision Pro</h2>
-          <h3 className="text-2xl md:text-3xl text-gray-300 mb-6">Welcome to the era of spatial computing.</h3>
+          <h3 className="text-2xl md:text-3xl text-gray-300 mb-6">Welcome to the fastest e-commerce platform.</h3>
           <div className="flex justify-center space-x-6">
             <a href="#" className="apple-link text-lg">Learn more</a>
-            <a href="#" className="apple-link text-lg">Buy</a>
+            <a href="store" className="apple-link text-lg">Buy</a>
           </div>
         </div>
       </section>
@@ -22,7 +22,7 @@ export default function HomePage() {
     <p className="text-xl text-black mb-8">Supercharged by M2.</p>
     <div className="flex justify-center space-x-6 mb-12">
       <a href="#" className="apple-link-black text-lg">Learn more</a>
-      <a href="#" className="apple-link-black text-lg">Buy</a>
+      <a href="store" className="apple-link-black text-lg">Buy</a>
     </div>
     <div className=" rounded-2xl overflow-hidden aspect-video">
       <img
@@ -40,7 +40,7 @@ export default function HomePage() {
           <p className="text-xl text-white-800 mb-8">The thinnest iPhone ever.With the power of pro inside.</p>
           <div className="flex justify-center space-x-6 ">
             <a href="#" className="text-lg text-gray-400 hover:underline">Learn more</a>
-            <a href="#" className="text-lg text-gray-400 hover:underline">Buy</a>
+            <a href="store" className="text-lg text-gray-400 hover:underline">Buy</a>
           </div><br/><br/><br/><br/><br/><br/><br/>
            <div className="rounded-2xl  overflow-hidden aspect-video">
             <img
@@ -61,7 +61,7 @@ export default function HomePage() {
           <p className="text-xl text-white-800 mb-8">Lovable. Drawable. Magical.</p>
           <div className="flex justify-center space-x-6 mb-12">
             <a href="#" className="text-lg text-gray-400 hover:underline">Learn more</a>
-            <a href="#" className="text-lg text-gray-400 hover:underline">Buy</a>
+            <a href="store" className="text-lg text-gray-400 hover:underline">Buy</a>
           </div>
           <div className="rounded-2xl  overflow-hidden aspect-video">
             <img
@@ -80,7 +80,7 @@ export default function HomePage() {
           <p className="text-xl text-black mb-8">The sound of innovation.</p>
           <div className="flex justify-center space-x-6 mb-12">
             <a href="#" className="text-lg text-gray-400 hover:underline">Learn more</a>
-            <a href="#" className="text-lg text-gray-400 hover:underline">Buy</a>
+            <a href="store" className="text-lg text-gray-400 hover:underline">Buy</a>
           </div>
           <div className="rounded-2xl overflow-hidden aspect-video">
             <img
@@ -96,7 +96,7 @@ export default function HomePage() {
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">The latest arrivals are here</h2>
           <p className="text-xl mb-8">Explore our collection of cutting-edge tech and find your next favorite device.</p>
-          <a href="#" className="apple-link-white-button">Shop now</a>
+          <a href="store" className="apple-link-white-button">Shop now</a>
         </div>
       </section>
 
