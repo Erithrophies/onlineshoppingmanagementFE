@@ -102,7 +102,7 @@ export default function CartPage() {
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-6 font-sans">
       <div className="max-w-5xl mx-auto bg-white shadow-md rounded-3xl p-8">
-        {/* Header with Back button */}
+        
         <div className="flex justify-between items-center mb-6">
           <button
             onClick={() => router.push("/Customer")}

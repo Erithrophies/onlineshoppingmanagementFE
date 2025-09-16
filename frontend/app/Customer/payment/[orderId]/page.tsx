@@ -68,7 +68,7 @@ export default function PaymentPage() {
 
       alert(`Payment for Order #${order.id} successful!`);
 
-      // Redirect back to CartPage; backend should now return only unpaid orders
+      
       router.push("/Customer/cart");
     } catch (err: any) {
       alert(err.response?.data?.message || "Payment failed");

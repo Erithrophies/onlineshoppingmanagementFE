@@ -90,7 +90,7 @@ export default function OrderDetailPage() {
                 <div className="text-sm font-medium">{qty}</div>
               </div>
 
-              {/* Line total */}
+              
               <div className="sm:w-1/6 text-right">
                 <div className="text-sm font-medium text-gray-500">${lineTotal.toFixed(2)}</div>
               </div>

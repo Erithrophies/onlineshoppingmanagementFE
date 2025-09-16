@@ -68,25 +68,25 @@ export default function AccountPage() {
   return (
     <div className="min-h-screen bg-zinc-50 py-12">
       <div className="max-w-4xl mx-auto px-6">
-        {/* Header */}
+       
         <section className="w-full !bg-gradient-to-r !from-purple-300 !via-pink-300 !to-red-300 text-purple-500 rounded-3xl p-10 shadow-2xl mb-12">
           <h2 className="text-4xl font-extrabold tracking-tight">
             Account Settings
           </h2>
           <p className="mt-3 text-lg text-white/90">
             Manage your profile information, update your details, and keep your
-            account secure ✨
+            account secure 
           </p>
         </section>
 
-        {/* Form Card */}
+        
         <div className="bg-white rounded-2xl shadow-xl p-8">
           <h3 className="text-2xl font-bold mb-6 text-zinc-900">
             Your Information
           </h3>
 
           <div className="space-y-6">
-            {/* Name */}
+            
             <div>
               <label className="block text-sm font-medium text-zinc-700 mb-2">
                 Name
@@ -100,7 +100,7 @@ export default function AccountPage() {
               />
             </div>
 
-            {/* Email */}
+           
             <div>
               <label className="block text-sm font-medium text-zinc-700 mb-2">
                 Email
@@ -115,7 +115,7 @@ export default function AccountPage() {
             </div>
           </div>
 
-          {/* Save Button */}
+          
           <div className="mt-8 flex items-center gap-4">
             <button
               onClick={handleSave}

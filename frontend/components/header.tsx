@@ -16,7 +16,7 @@ export default function Header() {
     if (confirm("Are you sure you want to logout?")) {
       localStorage.removeItem("authToken");
       setIsLoggedIn(false);
-      router.push("/"); // redirect to landing
+      router.push("/"); 
     }
   };
 
@@ -77,23 +77,23 @@ export default function Header() {
 
       <header className="header-bg fixed top-0 left-0 w-full z-10">
         <div className="header-container">
-          {/* Center-aligned brand name */}
+         
           <div className="flex-grow flex justify-center md:justify-start">
             <h1 className="text-xl font-semibold cursor-pointer text-white">
               <a href="/">COSMO</a>
             </h1>
           </div>
 
-          {/* Navigation links */}
+          
           <nav className="nav-links">
             <a href="/store" className="link-hover cursor-pointer text-gray-300">Store</a>
             <a href="/support" className="link-hover cursor-pointer text-gray-300">Support</a>
             <a href="/contact" className="link-hover cursor-pointer text-gray-300">Contact Us</a>
           </nav>
 
-          {/* Right-aligned icons */}
+          
           <div className="flex-grow flex justify-end items-center space-x-6 text-sm">
-            {/* Shopping bag icon as an inline SVG */}
+            
             <a href="/store" className="link-hover cursor-pointer text-gray-300">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
                 <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
@@ -102,13 +102,13 @@ export default function Header() {
               </svg>
             </a>
 
-            {/* User icon and dropdown menu container */}
+            
             <div
               className="dropdown"
               onMouseEnter={() => setIsLoginHovered(true)}
               onMouseLeave={() => setIsLoginHovered(false)}
             >
-              {/* User icon */}
+             
               <div className="cursor-pointer text-gray-300">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
                   <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
@@ -116,7 +116,7 @@ export default function Header() {
                 </svg>
               </div>
 
-              {/* The dropdown menu */}
+              
               {isLoginHovered && (
                 <div className="dropdown-menu">
                   {isLoggedIn ? (

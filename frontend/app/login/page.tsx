@@ -24,7 +24,7 @@ export default function LoginPage() {
     setLoginSuccess(false);
 
     try {
-      // Validate input fields with zod
+      
       loginSchema.parse({ username, password });
 
       const response = await axios.post("http://localhost:3000/auth/login", { username, password }, {
@@ -80,7 +80,7 @@ export default function LoginPage() {
         <div className="text-left mb-8">
           <h2 className="text-2xl font-semibold mb-6">Sign in</h2>
           <form onSubmit={handleLogin} noValidate>
-            {/* Username input */}
+            
             <div className="relative mb-6">
               <input
                 type="text"
@@ -97,7 +97,7 @@ export default function LoginPage() {
               )}
             </div>
 
-            {/* Password input */}
+            
             <div className="relative mb-6">
               <input
                 type="password"
@@ -114,7 +114,7 @@ export default function LoginPage() {
               )}
             </div>
 
-            {/* Submit button */}
+            
             <button
               type="submit"
               className={`w-full py-3 px-6 text-lg font-bold rounded-full transition-colors duration-300
@@ -125,7 +125,7 @@ export default function LoginPage() {
             </button>
           </form>
 
-          {/* Feedback messages */}
+          
           {loginSuccess && (
             <div className="mt-4 p-3 rounded-lg text-center text-green-700 bg-green-100 border border-green-200">
               Login successful! Redirecting...

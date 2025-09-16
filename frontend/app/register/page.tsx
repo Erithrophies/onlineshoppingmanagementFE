@@ -28,7 +28,7 @@ export default function RegisterPage() {
         <div className="text-left mb-8">
           <h2 className="text-2xl font-semibold mb-6">Join Us</h2>
 
-          {/* Segmented Control for User Type */}
+          
           <div className="flex bg-gray-200 rounded-full p-1 mb-8">
             <button
               className={`flex-1 py-2 rounded-full text-center font-medium transition-colors duration-300
@@ -53,7 +53,7 @@ export default function RegisterPage() {
             </button>
           </div>
 
-          {/* Render the selected form */}
+         
           {renderForm()}
         </div>
       </div>

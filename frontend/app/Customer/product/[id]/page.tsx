@@ -64,7 +64,7 @@ export default function ProductPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-zinc-300 via-zinc-400 to-zinc-300 text-black">
-      {/* Hero Section */}
+      
       <section className="flex flex-col md:flex-row items-center max-w-7xl mx-auto py-24 px-6 gap-12">
         {/* Product Image */}
         <div className="w-full md:w-1/2 flex justify-center">
@@ -81,7 +81,7 @@ export default function ProductPage() {
           <p className="text-4xl font-bold">${product.price}</p>
           <p className="text-sm text-zinc-700">By {product.seller?.shopName || "Unknown Shop"}</p>
 
-          {/* Quantity Selector */}
+         
           <div className="flex items-center gap-4 mt-4">
             <label className="text-lg font-medium">Quantity:</label>
             <input
@@ -93,7 +93,7 @@ export default function ProductPage() {
             />
           </div>
 
-          {/* Add to Cart Button */}
+          
           <button
             onClick={handleAddToCart}
             className="mt-6 w-full py-4 bg-zinc-800 text-white font-bold text-xl rounded-3xl shadow-lg hover:bg-zinc-700 transition"
@@ -103,7 +103,7 @@ export default function ProductPage() {
         </div>
       </section>
 
-      {/* Additional Info Section */}
+      
      <section className="max-w-7xl mx-auto px-6 py-16">
   <div className="bg-white/10 backdrop-blur-md rounded-3xl p-10 shadow-2xl space-y-6">
     <h2 className="text-3xl font-bold text-black">Product Details</h2>

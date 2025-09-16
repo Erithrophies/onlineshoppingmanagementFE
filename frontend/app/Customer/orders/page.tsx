@@ -106,12 +106,6 @@ export default function OrdersPage() {
                         </div>
                       </div>
 
-                   
-
-                      {/* Line total */}
-                      {/* <div className="sm:w-1/6 text-right">
-                        <div className="text-sm font-medium">${lineTotal.toFixed(2)}</div>
-                      </div> */}
                     </div>
                   );
                 })}

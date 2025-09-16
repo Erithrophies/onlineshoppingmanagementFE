@@ -2,45 +2,129 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { ShoppingCart, Search, LogOut } from "lucide-react"; // added LogOut icon
+import { ShoppingCart, Search, LogOut } from "lucide-react";
 import { useRouter } from "next/navigation";
+import Pusher from "pusher-js";
 
 export default function CustomerDashboard() {
   const [customer, setCustomer] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState<any[]>([]);
   const [search, setSearch] = useState("");
+  const [notifications, setNotifications] = useState<any[]>([]);
   const router = useRouter();
 
   useEffect(() => {
+    let canceled = false;
+    let pusher: Pusher | null = null;
+    let channel: any = null;
+
+    Pusher.logToConsole = true;
+
     const token = localStorage.getItem("authToken");
     if (!token) {
-      router.push("/login"); // redirect if no token
+      router.push("/login");
       return;
     }
 
-    // Fetch customer profile
+    
     axios
       .get("http://localhost:3000/customers/my-profile", {
         headers: { Authorization: `Bearer ${token}` },
       })
-      .then((res) => setCustomer(res.data))
-      .catch((err) => console.error(err));
+      .then((res) => {
+        if (canceled) return;
 
-    // Fetch products
+        const customer = res.data;
+        if (!customer) {
+          alert("Access denied! Only customers can access this page.");
+          router.replace("/");
+          return;
+        }
+
+        setCustomer(customer);
+
+        
+        pusher = new Pusher("383839eff6f5dc6b68fc", {
+          cluster: "mt1",
+          forceTLS: true,
+        });
+
+        pusher.connection.bind("connected", () => {
+          console.log("Pusher connected");
+        });
+
+        pusher.connection.bind("error", (err: any) => {
+          console.error("Pusher error", JSON.stringify(err, null, 2));
+        });
+
+        channel = pusher.subscribe(`customer-${customer.id}`);
+        console.log("Subscribed to channel:", `customer-${customer.id}`);
+
+        
+        channel.bind("new-order", (eventData: any) => {
+          const data =
+            typeof eventData === "string" ? JSON.parse(eventData) : eventData;
+
+          if (!canceled) {
+            
+            setNotifications((prevNotifications) => [data, ...prevNotifications]);
+
+            
+            const toast = document.createElement("div");
+            toast.innerText = `New Order: ${data.orderTitle} ($${data.amount})`;
+            toast.className =
+              "fixed top-4 right-4 bg-blue-600 text-white px-4 py-2 rounded shadow-lg z-50";
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 4000);
+          }
+        });
+      })
+      .catch((err) => {
+        if (canceled) return;
+        if (err.response?.status === 403) {
+          alert("Access denied! Only customers can access this page.");
+          router.replace("/");
+        } else {
+          console.error(err);
+        }
+      })
+      .finally(() => {
+        if (!canceled) setLoading(false);
+      });
+
+    
     axios
       .get("http://localhost:3000/products", {
         headers: { Authorization: `Bearer ${token}` },
       })
-      .then((res) => setProducts(res.data))
+      .then((res) => {
+        if (canceled) return;
+        setProducts(res.data);
+      })
       .catch((err) => console.error(err));
-  }, []);
 
-  // Filter products locally for search
+    return () => {
+      canceled = true;
+      if (channel) {
+        channel.unbind_all();
+        channel.unsubscribe();
+      }
+      if (pusher) {
+        pusher.disconnect();
+      }
+    };
+  }, [router]);
+
+  if (loading || !customer) {
+    return null; 
+  }
+
+  
   const filteredProducts = products.filter((p) =>
     p.name.toLowerCase().includes(search.toLowerCase())
   );
 
-  // Logout function
   const handleLogout = () => {
     if (confirm("Are you sure you want to logout?")) {
       localStorage.removeItem("authToken");
@@ -90,13 +174,29 @@ export default function CustomerDashboard() {
         </div>
       </header>
 
+      {/* Notifications */}
+      {notifications.length > 0 && (
+        <div className="max-w-7xl mx-auto mt-4 px-6">
+          <div className="flex flex-col gap-2">
+            {notifications.map((notif, idx) => (
+              <div
+                key={idx}
+                className="bg-blue-200 text-black px-4 py-5 rounded-full shadow-md"
+              >
+                New Order: {notif.orderTitle} (${notif.amount})
+              </div>
+            ))}
+          </div>
+        </div>
+      )}<br/>
+
       {/* Hero Section */}
       <section className="w-full bg-gradient-to-r from-gray-700 via-blue-900 to-gray-800 text-white py-20 text-center">
         <h2 className="text-4xl sm:text-5xl font-extrabold tracking-tight">
           Discover Products You’ll Love
         </h2>
         <p className="mt-3 text-lg text-zinc-300">
-          Sleek, modern, and made just for you ✨
+          New release, reliable, and made just for you 
         </p>
       </section>
 
@@ -111,7 +211,7 @@ export default function CustomerDashboard() {
                 key={product.id}
                 className="group bg-white rounded-3xl shadow-md hover:shadow-2xl transition overflow-hidden flex flex-col"
               >
-                {/* Product Image Placeholder */}
+                {/* Product Image */}
                 <div className="h-56 bg-gradient-to-tr from-zinc-200 to-zinc-300 flex items-center justify-center text-4xl font-bold text-zinc-500 group-hover:scale-105 transition-transform">
                   {product.name.charAt(0).toUpperCase()}
                 </div>
@@ -124,7 +224,9 @@ export default function CustomerDashboard() {
                   <p className="mt-2 text-sm text-zinc-500 line-clamp-2">
                     {product.description}
                   </p>
-                  <p className="mt-4 text-xl font-bold text-black">${product.price}</p>
+                  <p className="mt-4 text-xl font-bold text-black">
+                    ${product.price}
+                  </p>
                   <div className="flex-grow"></div>
                   <a
                     href={`/Customer/product/${product.id}`}
@@ -140,11 +242,11 @@ export default function CustomerDashboard() {
 
         {/* Cards Section */}
         <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* My Payments Card */}
           <div className="bg-white rounded-2xl shadow-lg p-8 flex flex-col justify-between hover:shadow-2xl transition">
             <h3 className="text-2xl font-bold mb-4 text-zinc-900">My Payments</h3>
             <p className="text-zinc-600 mb-6">
-              View your payment history, track upcoming invoices, and manage your payment methods.
+              View your payment history, track upcoming invoices, and manage your
+              payment methods.
             </p>
             <a
               href="/Customer/payment"
@@ -154,11 +256,11 @@ export default function CustomerDashboard() {
             </a>
           </div>
 
-          {/* My Orders Card */}
           <div className="bg-white rounded-2xl shadow-lg p-8 flex flex-col justify-between hover:shadow-2xl transition">
             <h3 className="text-2xl font-bold mb-4 text-zinc-900">My Orders</h3>
             <p className="text-zinc-600 mb-6">
-              Check your order history, track shipping status, and manage your current orders.
+              Check your order history, track shipping status, and manage your
+              current orders.
             </p>
             <a
               href="/Customer/orders"
@@ -175,7 +277,9 @@ export default function CustomerDashboard() {
             <div className="md:w-1/2 mb-6 md:mb-0">
               <h3 className="text-3xl md:text-4xl font-extrabold mb-4">Account Settings</h3>
               <p className="text-zinc-400 text-lg md:text-xl leading-relaxed">
-                Manage your profile information, update your password, and customize your preferences. Keep your account secure and up-to-date with ease.
+                Manage your profile information, update your password, and
+                customize your preferences. Keep your account secure and up-to-date
+                with ease.
               </p>
             </div>
             <div className="md:w-1/2 flex justify-center md:justify-end">

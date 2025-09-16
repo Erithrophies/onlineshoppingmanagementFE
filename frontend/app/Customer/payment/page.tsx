@@ -1,5 +1,5 @@
 "use client";
-
+import Pusher from "pusher-js";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { ArrowLeft, CreditCard } from "lucide-react";
@@ -47,7 +47,7 @@ useEffect(() => {
         </div>
       </header>
 
-      {/* Hero */}
+      
       <section className="w-full bg-gradient-to-r from-blue-900 via-blue-800 to-gray-800 text-white py-16 text-center shadow-md">
         <h2 className="text-4xl font-extrabold tracking-tight">
           Manage Your Payments
@@ -57,7 +57,7 @@ useEffect(() => {
         </p>
       </section>
 
-      {/* Main Content */}
+      
       <main className="max-w-7xl mx-auto px-6 py-12">
         {loading ? (
           <p className="text-center text-zinc-500">Loading payments...</p>
