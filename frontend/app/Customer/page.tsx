@@ -55,7 +55,7 @@ export default function CustomerDashboard() {
         });
 
         pusher.connection.bind("error", (err: any) => {
-          console.error("Pusher error", JSON.stringify(err, null, 2));
+        console.error("Pusher error", JSON.stringify(err, null, 2));
         });
 
         channel = pusher.subscribe(`customer-${customer.id}`);
