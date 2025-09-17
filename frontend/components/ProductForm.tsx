@@ -52,7 +52,6 @@ export default function ProductForm({ product, onSuccess, onCancel }: ProductFor
       [name]: name === 'price' || name === 'sellerId' ? Number(value) : value
     }));
     
-    // Clear error when field is edited
     if (errors[name]) {
       setErrors(prev => {
         const newErrors = { ...prev };
@@ -67,7 +66,6 @@ export default function ProductForm({ product, onSuccess, onCancel }: ProductFor
     setIsSubmitting(true);
     
     try {
-      // Validate form data
       productSchema.parse(formData);
       
       const token = localStorage.getItem('authToken');
@@ -118,13 +116,11 @@ export default function ProductForm({ product, onSuccess, onCancel }: ProductFor
               name="name"
               value={formData.name}
               onChange={handleChange}
-              className={`mt-1 block w-full rounded-xl border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500 ${
-                errors.name ? 'border-red-500' : ''
-              }`}
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
             />
-            {errors.name && <p className="mt-1 text-sm text-red-600">{errors.name}</p>}
+            {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
           </div>
-          
+
           <div>
             <label className="block text-sm font-medium text-gray-700">Description</label>
             <textarea
@@ -132,13 +128,11 @@ export default function ProductForm({ product, onSuccess, onCancel }: ProductFor
               value={formData.description}
               onChange={handleChange}
               rows={3}
-              className={`mt-1 block w-full rounded-xl border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500 ${
-                errors.description ? 'border-red-500' : ''
-              }`}
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
             />
-            {errors.description && <p className="mt-1 text-sm text-red-600">{errors.description}</p>}
+            {errors.description && <p className="text-red-500 text-xs mt-1">{errors.description}</p>}
           </div>
-          
+
           <div>
             <label className="block text-sm font-medium text-gray-700">Price</label>
             <input
@@ -146,51 +140,45 @@ export default function ProductForm({ product, onSuccess, onCancel }: ProductFor
               name="price"
               value={formData.price}
               onChange={handleChange}
-              step="0.01"
-              min="0"
-              className={`mt-1 block w-full rounded-xl border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500 ${
-                errors.price ? 'border-red-500' : ''
-              }`}
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
             />
-            {errors.price && <p className="mt-1 text-sm text-red-600">{errors.price}</p>}
+            {errors.price && <p className="text-red-500 text-xs mt-1">{errors.price}</p>}
           </div>
-          
+
           <div>
             <label className="block text-sm font-medium text-gray-700">Seller</label>
             <select
               name="sellerId"
               value={formData.sellerId}
               onChange={handleChange}
-              className={`mt-1 block w-full rounded-xl border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500 ${
-                errors.sellerId ? 'border-red-500' : ''
-              }`}
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
             >
               <option value="">Select a seller</option>
               {sellers.map(seller => (
                 <option key={seller.id} value={seller.id}>
-                  {seller.name || seller.shopName}
+                  {seller.shopName} (ID: {seller.id})
                 </option>
               ))}
             </select>
-            {errors.sellerId && <p className="mt-1 text-sm text-red-600">{errors.sellerId}</p>}
+            {errors.sellerId && <p className="text-red-500 text-xs mt-1">{errors.sellerId}</p>}
           </div>
           
-          {errors.submit && <p className="text-sm text-red-600">{errors.submit}</p>}
-          
-          <div className="flex justify-end space-x-2 mt-6 pt-4 border-t border-gray-200 sticky bottom-0 bg-white">
+          {errors.submit && <p className="text-red-500 text-sm">{errors.submit}</p>}
+
+          <div className="flex justify-end space-x-2 pt-4">
             <button
               type="button"
               onClick={onCancel}
-              className="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-xl"
+              className="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-xl"
+              className="px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 disabled:bg-gray-400"
             >
-              {isSubmitting ? 'Saving...' : (product ? 'Update' : 'Create')}
+              {isSubmitting ? 'Saving...' : 'Save Product'}
             </button>
           </div>
         </form>
